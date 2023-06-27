@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<robot name="mobile_robot3">
+
+  
+
+  <!--chassis link-->
+  <link
+    name="base_link">
+    <inertial>
+      <origin
+        xyz="-1.84681865528865E-09 1.67303074858624E-09 0.0499999976569369"
+        rpy="0 0 0" />
+      <mass
+        value="6.98357861707715" />
+      <inertia
+        ixx="0.0450125089661637"
+        ixy="-1.10601386756473E-09"
+        ixz="-1.80119500473885E-11"
+        iyy="0.0456474317228151"
+        iyz="1.80836842276469E-09"
+        izz="0.0788828049167458" />
+    </inertial>
+
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mobile_robot3/meshes/base_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mobile_robot3/meshes/base_link.STL" />
+      </geometry>
+    </collision>
+
+  </link>
+
+  <!-- right wheel link-->
+  <link
+    name="right_wheel">
+
+    <inertial>
+      <origin
+        xyz="1.0763E-17 0.017436 0"
+        rpy="0 0 0" />
+      <mass
+        value="0.89812" />
+      <inertia
+        ixx="0.002689"
+        ixy="-1.3205E-19"
+        ixz="-3.7164E-19"
+        iyy="0.0051879"
+        iyz="-7.1334E-22"
+        izz="0.002689" />
+    </inertial>
+
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mobile_robot3/meshes/right_wheel.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mobile_robot3/meshes/right_wheel.STL" />
+      </geometry>
+    </collision>
+
+  </link>
+  <!-- right wheel joint-->
+  <joint
+    name="right_wheel_joint"
+    type="continuous">
+    <origin
+      xyz="0 -0.1861 0.05"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="right_wheel" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      effort="10"
+      velocity="10" />
+  </joint>
+
+  <!-- left wheel link-->
+  <link
+    name="left_wheel">
+
+    <inertial>
+      <origin
+        xyz="-2.9627E-18 -0.017436 0"
+        rpy="0 0 0" />
+      <mass
+        value="0.89812" />
+      <inertia
+        ixx="0.002689"
+        ixy="-3.0433E-20"
+        ixz="2.353E-19"
+        iyy="0.0051879"
+        iyz="-8.1708E-21"
+        izz="0.002689" />
+    </inertial>
+
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mobile_robot3/meshes/left_wheel.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mobile_robot3/meshes/left_wheel.STL" />
+      </geometry>
+    </collision>
+
+  </link>
+  <!-- left wheel joint-->
+  <joint
+    name="left_wheel_joint"
+    type="continuous">
+    <origin
+      xyz="0 0.1861 0.05"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="left_wheel" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      effort="10"
+      velocity="10" />
+  </joint>
+
+  <!--castor wheel joint-->
+  <joint name="caster_wheel_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="caster_wheel"/>
+    <origin xyz="0.09 0 0" rpy="0 0 0"/>
+  </joint>
+
+  <!--castor wheel link-->
+  <link name="caster_wheel">
+    <visual>
+        <geometry>
+            <sphere radius="0.05" />
+        </geometry>
+        <material name="black"/>
+    </visual>
+    <collision>
+        <geometry>
+            <sphere radius="0.05" />
+        </geometry>
+        <material name="black"/>
+    </collision>
+    
+
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass
+        value="0.5" />
+      <inertia
+        ixx="0.00001"
+        ixy="0"
+        ixz="0"
+        iyy="0.00001"
+        iyz="0"
+        izz="0.00001" />
+    </inertial>
+    
+  </link>
+
+  <!-- colour for castor wheel and making the castor wheel to be frictionless-->
+  <gazebo reference="caster_wheel">
+    <material>Gazebo/Black</material>
+    <mu1 value="0.00"/>
+    <mu2 value="0.00"/>
+  </gazebo>
+
+  <!-- camera joint-->
+  <joint name="camera_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="camera_link"/>
+    <origin xyz="0.18 0 0.09" rpy="0 1.5708 0"/>
+  </joint>
+
+  <link name="camera_link">
+    <visual>
+        <geometry>
+            <box size="0.010 0.03 0.06"/>
+        </geometry>
+        <material name="red"/>
+    </visual>
+  </link>
+
+
+  <joint name="camera_optical_joint" type="fixed">
+    <origin xyz="0 0 0" rpy="-1.57079632679 0 -1.57079632679" />
+    <parent link="camera_link" />
+    <child link="camera_link_optical" />
+  </joint>
+
+  <link name="camera_link_optical"></link>
+
+  <gazebo reference="camera_link">
+    <material>Gazebo/Red</material>
+
+    <sensor name="camera" type="camera">
+            <pose> 0 0 0 0 0 0 </pose>
+            <visualize>true</visualize>
+            <update_rate>10</update_rate>
+            <camera>
+                <horizontal_fov>1.089</horizontal_fov>
+                <image>
+                    <format>R8G8B8</format>
+                    <width>640</width>
+                    <height>480</height>
+                </image>
+                <clip>
+                    <near>0.05</near>
+                    <far>8.0</far>
+                </clip>
+            </camera>
+
+            <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
+                <frame_name>camera_link_optical</frame_name>
+            </plugin>
+    </sensor>
+  </gazebo>
+  
+  <!-- differential drive plugin -->
+  <!---->
+  <gazebo>
+    <plugin name="differential_drive_controller" filename="libgazebo_ros_diff_drive.so">
+
+      <!-- Plugin update rate in Hz -->
+      <updateRate>20</updateRate>
+
+      <!-- Name of left joint, defaults to `left_joint` -->
+      <leftJoint>left_wheel_joint</leftJoint>
+
+      <!-- Name of right joint, defaults to `right_joint` -->
+      <rightJoint>right_wheel_joint</rightJoint>
+
+      <!-- The distance from the center of one wheel to the other, in meters, defaults to 0.34 m -->
+      <wheelSeparation>0.3068</wheelSeparation>
+
+      <!-- Diameter of the wheels, in meters, defaults to 0.15 m -->
+      <wheelDiameter>0.2032</wheelDiameter>
+
+      <!-- Wheel acceleration, in rad/s^2, defaults to 0.0 rad/s^2 -->
+      <wheelAcceleration>1.0</wheelAcceleration>
+
+      <!-- Maximum torque which the wheels can produce, in Nm, defaults to 5 Nm -->
+      <wheelTorque>20000</wheelTorque>
+
+      <!-- Topic to receive geometry_msgs/Twist message commands, defaults to `cmd_vel` -->
+      <commandTopic>cmd_vel</commandTopic>
+
+      <!-- Topic to publish nav_msgs/Odometry messages, defaults to `odom` -->
+      <odometryTopic>odom</odometryTopic>
+
+      <!-- Odometry frame, defaults to `odom` -->
+      <odometryFrame>odom</odometryFrame>
+
+      <!-- Robot frame to calculate odometry from, defaults to `base_footprint` -->
+      <robotBaseFrame>base_link</robotBaseFrame>
+
+      <!-- Odometry source, 0 for ENCODER, 1 for WORLD, defaults to WORLD -->
+      <odometrySource>1</odometrySource>
+
+      <!-- Set to true to publish transforms for the wheel links, defaults to false -->
+      <publishWheelTF>true</publishWheelTF>
+
+      <!-- Set to true to publish transforms for the odometry, defaults to true -->
+      <publishOdom>true</publishOdom>
+
+      <!-- Set to true to publish sensor_msgs/JointState on /joint_states for the wheel joints, defaults to false -->
+      <publishWheelJointState>true</publishWheelJointState>
+
+      <!-- Set to true to swap right and left wheels, defaults to true -->
+      <legacyMode>false</legacyMode>
+    </plugin>
+
+  </gazebo>
+
+  <gazebo>
+    <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+      <robotNamespace>/MYROBOT</robotNamespace>
+      <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
+    </plugin>
+  </gazebo>
+
+  <!--pid left wheel trans-->
+  <transmission name="left_tran">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="left_wheel_joint">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="left_wheel_motor">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+  <!--pid right wheel trans-->
+  <transmission name="right_tran">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="right_wheel_joint">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="right_wheel_motor">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+</robot>
